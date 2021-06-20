@@ -11,29 +11,38 @@
         </div>
       </div>
       <hr/>
-      <ul>
-        <li v-for="user in Users" :key="user.id" class="p-2 shadow-lg hover:shadow-sm mb-2 relative">
-          <template v-if="!user.isEditMode">
-            {{ user.name }}
-            <p class="text-sm text-gray-400">{{ user.note }}</p>
-            <div class="absolute top-1/2 right-0.5 transform -translate-y-1/2">
-              <button
-                  @click.prevent="startEditMode(user.id)"
-                  class="bg-blue-400 text-white px-2 py-0.5 rounded-l-2xl rounded-r-none transition-all transform hover:-translate-x-1.5">
-                Edit
-              </button>
-              <button
-                  @click.prevent="deleteUser(user.id)"
-                  class="bg-red-600 text-white px-2 py-0.5 rounded-r-2xl rounded-l-none transition-all transform hover:translate-x-1.5">
-                Remove
-              </button>
-            </div>
-          </template>
-          <template v-else>
-            Editing asfdd
-          </template>
-        </li>
-      </ul>
+      <template v-if="Users.length > 0">
+        <ul>
+          <li v-for="user in Users" :key="user.id" class="p-2 shadow-lg hover:shadow-sm mb-2 relative">
+            <template v-if="!user.isEditMode">
+              {{ user.name }}
+              <p class="text-sm text-gray-400">{{ user.note }}</p>
+              <div class="absolute top-1/2 right-0.5 transform -translate-y-1/2">
+                <button
+                    @click.prevent="startEditMode(user.id)"
+                    class="bg-blue-400 text-white px-2 py-0.5 rounded-l-2xl rounded-r-none transition-all transform hover:-translate-x-1.5">
+                  Edit
+                </button>
+                <button
+                    @click.prevent="deleteUser(user.id)"
+                    class="bg-red-600 text-white px-2 py-0.5 rounded-r-2xl rounded-l-none transition-all transform hover:translate-x-1.5">
+                  Remove
+                </button>
+              </div>
+            </template>
+            <template v-else>
+              Editing asfdd
+            </template>
+          </li>
+        </ul>
+      </template>
+      <template v-else>
+        <h5 class="text-center">
+          <span class="font-bold text-transparent bg-gradient-to-r from-blue-300 to-pink-400 bg-clip-text text-lg">
+             ¯\_(ツ)_/¯ No Customers
+          </span>
+        </h5>
+      </template>
     </div>
     <div class="shadow-lg p-2">
       <AddUser :user="UserBeingEdited" @add:user="userAdded" @edit:cancel="editCancelled"
