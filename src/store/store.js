@@ -1,7 +1,9 @@
 import {createStore} from "vuex";
+import createPersistedState from 'vuex-persistedstate';
 
 const findUser = (state, id) => state.users.find(x=> x.id === id);
 const store = createStore({
+    plugins: [createPersistedState()],
     state(){
         return {
           users: []

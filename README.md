@@ -14,9 +14,10 @@ Demo: https://vuex-ex.netlify.app/
 
 > Tailwind: A utility-first CSS framework used to style this project [ https://tailwindcss.com/ ]
 
-> Netlify: Hosting platform used for hosting this app 
+> Netlify: Hosting platform used for hosting this app
 
+> vuex-persistedstate: For storing/retrieving state information from localstorage
 
-### Note: This project shows the usage of Vuex for state management. However, using state management for list of users/customers is a bad idea. State management should be done for stuffs that the whole site reuqires such as current user, cart items etc.
+### Note: This project shows the usage of Vuex for state management. However, using state management for list of users/customers is a bad idea. State management should be done for stuffs that the whole site requires such as current user, cart items etc.
 
 Using state management library for these stuffs might be overkill. It can make your application much more complicated.
