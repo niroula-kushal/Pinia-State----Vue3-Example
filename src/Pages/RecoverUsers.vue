@@ -47,18 +47,14 @@
 </template>
 
 <script setup>
-import {useStore} from "vuex";
 import {computed} from "vue";
+import {useUserStore} from "../store/store";
 
-const store = useStore();
-const Users = computed(() => store.getters.deletedUsers);
+const store = useUserStore();
+const Users = computed(() => store.deletedUsers);
 
 const recoverUser = (userId) => {
-  store.commit('recoverUser', userId);
+  store.recoverUser(userId);
 };
 
 </script>
-
-<style scoped>
-
-</style>

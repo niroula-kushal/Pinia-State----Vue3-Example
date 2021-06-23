@@ -1,10 +1,13 @@
-import {createStore} from "vuex";
-import createPersistedState from 'vuex-persistedstate';
+import {defineStore} from "pinia";
 
 const findUser = (state, id) => state.users.find(x=> x.id === id);
-const store = createStore({
-    plugins: [createPersistedState()],
+export const useUserStore = defineStore({
+    id: "userStore",
     state(){
+        const localStorageData = localStorage.getItem('userStoreData');
+        if(localStorageData) {
+            return JSON.parse(localStorageData);
+        }
         return {
           users: []
         };
@@ -14,26 +17,27 @@ const store = createStore({
         deletedUsers: state => state.users.filter(x => x.isDeleted),
         findUser: findUser
     },
-    mutations: {
-        addUser: (state,user) => state.users.push({
-            ...user,
-            isDeleted: false
-        }),
-        deleteUser(state, id) {
-            const user = findUser(state,id);
+    actions: {
+        addUser(user) {
+            this.users.push({
+                ...user,
+                isDeleted: false
+            })
+        },
+        deleteUser(id) {
+            const user = findUser(this,id);
             if(!user) throw "User not found";
             user.isDeleted = true;
         },
-        updateUser(state,user) {
-            const dbUser = findUser(state,user.id);
+        updateUser(user) {
+            const dbUser = findUser(this,user.id);
             if(!dbUser) throw "User not found";
             dbUser.name = user.name;
             dbUser.note = user.note;
         },
-        recoverUser (state, id) {
-            const user = findUser(state, id);
+        recoverUser (id) {
+            const user = findUser(this, id);
             user.isDeleted = false;
         }
     }
 });
-export default store;

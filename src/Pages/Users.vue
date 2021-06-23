@@ -53,17 +53,17 @@
 
 <script setup>
 import AddUser from '../components/AddUser.vue';
-import {useStore} from "vuex";
 import {computed, ref} from "vue";
+import {useUserStore} from "../store/store";
 
-const store = useStore();
+const store = useUserStore();
 
 const UserBeingEdited = ref(null);
 
 const userAdded = ($event) => {
   const addedUser = $event;
   addedUser.id = Symbol();
-  store.commit("addUser", addedUser);
+  store.addUser(addedUser);
 };
 
 const editCancelled = () => {
@@ -71,7 +71,7 @@ const editCancelled = () => {
 }
 
 const userEdited = ($event) => {
-  store.commit("updateUser", $event);
+  store.updateUser($event);
   UserBeingEdited.value = null;
 };
 
@@ -79,9 +79,9 @@ const deleteUser = (userId) => {
   if (UserBeingEdited.value !== null && UserBeingEdited.value.id == userId) {
     UserBeingEdited.value = null;
   }
-  store.commit("deleteUser", userId);
+  store.deleteUser(userId);
 };
-const Users = computed(() => store.getters.availableUsers);
+const Users = computed(() => store.availableUsers);
 const startEditMode = (id) => {
   UserBeingEdited.value = Users.value.find(x => x.id === id);
 };
